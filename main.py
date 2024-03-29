@@ -19,9 +19,18 @@ layout_template = [
     ]
 ]
 
+layout_save = [
+    [
+        sg.Text('ファイルの場所'),
+        sg.InputText(key='save'),
+        sg.FileSaveAsBrowse('保存', file_types=(('PowerPointファイル', '*.pptx'),))
+    ]
+]
+
 layout = [
     [sg.Frame('テンプレート', layout_template)],
     [sg.Frame('名前データ', layout_data)],
+    [sg.Frame('保存場所', layout_save)],
     [sg.Button('OK')]
 ]
 
