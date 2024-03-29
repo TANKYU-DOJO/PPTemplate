@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c91305a7377bf31589244e442a54be0d70846ac14440f0006470bca9cd75661c"
+            "sha256": "9398513acffed276062aa352746340fb6e08c2546c997642b5e7e883b777dde7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,17 @@
         ]
     },
     "default": {
+        "aspose.slides": {
+            "hashes": [
+                "sha256:234f91addef8a6ca173fa485f2a6835a60031e9a42b6a1eebbe3edda121402a0",
+                "sha256:7769fbb6934c39af1597da2e301a0ebdba9de11ad970329ecdb2ddcc3f9a5b9c",
+                "sha256:968dc6ce8856e5960497b77174bddcbaa83ba5c8776f125c60712f34aee10870",
+                "sha256:9b789a34cc969c91ca95ff636d3f6a3fa8b415e2a7205058cfc61b6ec788c8d8",
+                "sha256:b116f2896ab30eac78e65e57a15aeed0f81d61d0e44b6c59e9d7753c930a3ab0"
+            ],
+            "markers": "python_version < '3.12' and python_version >= '3.5'",
+            "version": "==24.3.0"
+        },
         "et-xmlfile": {
             "hashes": [
                 "sha256:8eb9e2bc2f8c97e37a2dc85a09ecdcdec9d8a396530a6d5a33b30b9a92da0c5c",
