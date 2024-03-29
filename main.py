@@ -40,7 +40,16 @@ while window.is_alive():
     event, values = window.read()
 
     if event == "OK":
-        break
+        msg = ""
+        if not os.path.isfile(values['template']):
+            msg += "テンプレートファイルが存在しません\n"
+        if not os.path.isfile(values['data']):
+            msg += "名前データファイルが存在しません\n"
+
+        if msg != "":
+            sg.popup(msg, "エラー")
+        else:
+            break
     elif event == 'data':
         if values['data'] == '':
             window['sheets'].update(values=["ファイルを開いてください。"])
