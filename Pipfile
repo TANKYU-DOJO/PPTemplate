@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 python-pptx = "*"
 tkeasygui = "*"
+openpyxl = "*"
 
 [dev-packages]
 
