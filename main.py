@@ -15,7 +15,7 @@ layout_template = [
     [
         sg.Text('ファイルの場所'),
         sg.InputText(key='template'),
-        sg.FileBrowse('開く', file_types=(("All Files", "*.pptx"),))
+        sg.FileBrowse('開く', file_types=(("PowerPointファイル", "*.pptx"),))
     ]
 ]
 
