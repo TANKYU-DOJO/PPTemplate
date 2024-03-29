@@ -6,7 +6,7 @@ layout_data = [
     [
         sg.Text('ファイルの場所'),
         sg.InputText(key='data'),
-        sg.FileBrowse('開く', file_types=(('Excelファイル', '*.data'),))
+        sg.FileBrowse('開く', file_types=(('Excelファイル', '*.xlsx'),))
     ],
     [sg.Text('読み込むシート'), sg.Listbox(values=['ファイルを開いてください'], key='sheets')]
 ]
