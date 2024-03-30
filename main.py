@@ -22,9 +22,9 @@ layout_template = [
 
 layout_save = [
     [
-        sg.Text('ファイルの場所'),
+        sg.Text('フォルダーの場所'),
         sg.InputText(key='save'),
-        sg.FileSaveAsBrowse('保存', file_types=(('PDFファイル', '*.pdf'),))
+        sg.FolderBrowse('フォルダー')
     ]
 ]
 

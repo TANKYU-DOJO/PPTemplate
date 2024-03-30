@@ -31,9 +31,6 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
             break
         keys.append(cell.value)
 
-    dir_output = os.path.splitext(path_output)[0]
-    os.makedirs(dir_output, exist_ok=True)
-
     counter = 1
     while ws[counter + 1][0].value is not None:
         template = pptx.Presentation(path_template)
@@ -56,7 +53,7 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
                                 shape.text = ''
                 else:
                     replace_text(template.slides[0], keys[i], ws[counter + 1][i].value)
-        template.save(os.path.join(dir_output, str(counter) + '.pptx'))
+        template.save(os.path.join(path_output, str(counter) + '.pptx'))
         counter += 1
     
     wb.close()
