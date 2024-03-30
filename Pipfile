@@ -7,7 +7,6 @@ name = "pypi"
 python-pptx = "*"
 tkeasygui = "*"
 openpyxl = "*"
-"aspose.slides" = "*"
 
 [dev-packages]
 
