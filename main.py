@@ -1,6 +1,7 @@
 import os
 import openpyxl
 import TkEasyGUI as sg
+from generate import generate
 
 layout_data = [
     [
@@ -23,7 +24,7 @@ layout_save = [
     [
         sg.Text('ファイルの場所'),
         sg.InputText(key='save'),
-        sg.FileSaveAsBrowse('保存', file_types=(('PowerPointファイル', '*.pptx'),))
+        sg.FileSaveAsBrowse('保存', file_types=(('PDFファイル', '*.pdf'),))
     ]
 ]
 
@@ -49,6 +50,12 @@ while window.is_alive():
         if msg != "":
             sg.popup(msg, "エラー")
         else:
+            generate(
+                values['template'],
+                values['data'],
+                values['save'],
+                values['sheets'][0] if values['sheets'] else None
+            )
             break
     elif event == 'data':
         if values['data'] == '':
