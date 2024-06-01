@@ -39,13 +39,11 @@ jobs:
         nuitka-version: main
         script-name: main.py
         standalone: true
-
+        onefile: false
 
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.os }} Build
         path: |
-          build/*.exe
-          build/*.bin
-          build/*.app/**/*
+          main.dist
