@@ -5,6 +5,7 @@ name: Python application
 
 on:
   push:
+    tags: [ "v*" ]
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
@@ -14,11 +15,11 @@ permissions:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
 
     strategy:
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        os: [windows, macos, ubuntu]
 
     steps:
     - name: Checkout
@@ -47,3 +48,35 @@ jobs:
       with:
         name: ${{ matrix.os }} Build
         path: build/main.dist
+    
+    - name: Create release
+      id: create_release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Archive Release
+      uses: thedoctor0/zip-release@0.7.6
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        type: 'zip'
+        filename: '${{ matrix.os }}.zip'
+        directory: 'build/main.dist'
+
+    - name: Upload Release Asset
+      if: startsWith(github.ref, 'refs/tags/')
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ matrix.os }}.zip
+        asset_name: ${{ matrix.os }}.zip
+        asset_content_type: application/zip
