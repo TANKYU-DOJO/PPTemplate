@@ -1,2 +1,2 @@
 # NameplateCreator
-PowerPointのテンプレートファイルと、CSVファイルをもとに名札を生成します。
+PowerPointのテンプレートファイルと、Excelのデータをもとに名札を生成します。
