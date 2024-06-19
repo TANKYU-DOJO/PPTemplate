@@ -6,7 +6,7 @@ from generate import generate
 layout_data = [
     [
         sg.Text('ファイルの場所'),
-        sg.InputText(key='data'),
+        sg.Input(key='data', enable_events=True),
         sg.FileBrowse('Excelファイルを開く', file_types=(('Excelファイル', '*.xlsx'),))
     ],
     [sg.Text('読み込むシート'), sg.Listbox(values=['ファイルを開いてください'], key='sheets')]
@@ -15,7 +15,7 @@ layout_data = [
 layout_template = [
     [
         sg.Text('ファイルの場所'),
-        sg.InputText(key='template'),
+        sg.Input(key='template', enable_events=True),
         sg.FileBrowse('PowerPointファイルを開く', file_types=(("PowerPointファイル", "*.pptx"),))
     ]
 ]
@@ -23,7 +23,7 @@ layout_template = [
 layout_save = [
     [
         sg.Text('フォルダーの場所'),
-        sg.InputText(key='save'),
+        sg.Input(key='save'),
         sg.FolderBrowse('フォルダー')
     ]
 ]
