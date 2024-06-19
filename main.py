@@ -7,7 +7,7 @@ layout_data = [
     [
         sg.Text('ファイルの場所'),
         sg.InputText(key='data'),
-        sg.FileBrowse('開く', file_types=(('Excelファイル', '*.xlsx'),))
+        sg.FileBrowse('Excelファイルを開く', file_types=(('Excelファイル', '*.xlsx'),))
     ],
     [sg.Text('読み込むシート'), sg.Listbox(values=['ファイルを開いてください'], key='sheets')]
 ]
@@ -16,7 +16,7 @@ layout_template = [
     [
         sg.Text('ファイルの場所'),
         sg.InputText(key='template'),
-        sg.FileBrowse('開く', file_types=(("PowerPointファイル", "*.pptx"),))
+        sg.FileBrowse('PowerPointファイルを開く', file_types=(("PowerPointファイル", "*.pptx"),))
     ]
 ]
 
@@ -58,6 +58,7 @@ while window.is_alive():
             )
             break
     elif event == 'data':
+        print("DEBUG")
         if values['data'] == '':
             window['sheets'].update(values=["ファイルを開いてください。"])
         elif os.path.isfile(values['data']):
