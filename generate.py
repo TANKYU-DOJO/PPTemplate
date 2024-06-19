@@ -24,7 +24,7 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
     ws = wb.active
     if sheetname is not None:
         ws = wb[sheetname]
-    
+
     keys = []
     for cell in ws[1]:
         if cell.value is None:
@@ -55,5 +55,5 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
                     replace_text(template.slides[0], keys[i], ws[counter + 1][i].value)
         template.save(os.path.join(path_output, str(counter) + '.pptx'))
         counter += 1
-    
+
     wb.close()
