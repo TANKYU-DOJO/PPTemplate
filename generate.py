@@ -29,13 +29,13 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
     for cell in ws[1]:
         if cell.value is None:
             break
-        keys.append(cell.value)
+        keys.append(str(cell.value))
 
     counter = 1
     while ws[counter + 1][0].value is not None:
         template = pptx.Presentation(path_template)
         for i, key in enumerate(keys):
-            value = ws[counter + 1][i].value
+            value = str(ws[counter + 1][i].value)
 
             if value is None:
                 for shape in template.slides[0].shapes:
@@ -44,7 +44,7 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
                             shape.fill.background()
                 replace_text(template.slides[0], key, '')
             else:
-                if re.fullmatch(r'#[a-f|A-F|0-9]{6}', value) is not None:
+                if re.fullmatch(r'#[0-9a-zA-Z]{6}', value) is not None:
                     for shape in template.slides[0].shapes:
                         if hasattr(shape, 'text'):
                             if shape.text == key:
@@ -53,16 +53,17 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
                                 shape.fill.solid()
                                 shape.fill.fore_color.rgb = RGBColor(rgb[0], rgb[1], rgb[2])
                                 shape.text = ''
-                elif re.fullmatch(r'\./.*\..+', value) is not None:
+                elif re.fullmatch(r'\./.+\.[0-9a-zA-Z]+', value) is not None:
                     for shape in template.slides[0].shapes:
                         if hasattr(shape, 'text'):
                             if shape.text == key:
-                                template.slides[0].shapes.add_picture(value, shape.left, shape.top, shape.width, shape.height)
+                                path = os.path.join(os.path.dirname(path_data), value.lstrip('./'))
+                                template.slides[0].shapes.add_picture(path, shape.left, shape.top, shape.width, shape.height)
                                 # shapeを削除
                                 XML_reference = shape._sp
                                 XML_reference.getparent().remove(XML_reference)
                 else:
-                    replace_text(template.slides[0], keys[i], ws[counter + 1][i].value)
+                    replace_text(template.slides[0], key, value)
         template.save(os.path.join(path_output, str(counter) + '.pptx'))
         counter += 1
 
