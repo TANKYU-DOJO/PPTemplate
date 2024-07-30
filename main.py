@@ -58,7 +58,6 @@ while window.is_alive():
             )
             break
     elif event == 'data':
-        print("DEBUG")
         if values['data'] == '':
             window['sheets'].update(values=["ファイルを開いてください。"])
         elif os.path.isfile(values['data']):
