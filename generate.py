@@ -35,7 +35,9 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
     while ws[counter + 1][0].value is not None:
         template = pptx.Presentation(path_template)
         for i, key in enumerate(keys):
-            value = str(ws[counter + 1][i].value)
+            value = ws[counter + 1][i].value
+            if value is None: value = ''
+            else: value = str(value)
 
             if value is None:
                 for shape in template.slides[0].shapes:
