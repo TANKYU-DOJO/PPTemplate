@@ -36,9 +36,6 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
         template = pptx.Presentation(path_template)
         for i, key in enumerate(keys):
             value = ws[counter + 1][i].value
-            if value is None: value = ''
-            else: value = str(value)
-
             if value is None:
                 for shape in template.slides[0].shapes:
                     if hasattr(shape, 'text'):
@@ -46,6 +43,7 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
                             shape.fill.background()
                 replace_text(template.slides[0], key, '')
             else:
+                value = str(value)
                 if re.fullmatch(r'#[0-9a-zA-Z]{6}', value) is not None:
                     for shape in template.slides[0].shapes:
                         if hasattr(shape, 'text'):
