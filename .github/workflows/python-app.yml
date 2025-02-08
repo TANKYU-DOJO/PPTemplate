@@ -56,9 +56,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.os }} Build
-        path:
-          build/pptemplate.dist
-          build/pptemplate.app
+        path: |
+          'build/pptemplate.*'
+          '!build/pptemplate.build'
 
     - name: Create release
       id: create_release
