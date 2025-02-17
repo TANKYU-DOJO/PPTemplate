@@ -57,8 +57,8 @@ jobs:
       with:
         name: ${{ matrix.os }} Build
         path: |
-          'build/pptemplate.*'
-          '!build/pptemplate.build'
+          build/pptemplate.*/
+          !build/pptemplate.build/
 
     - name: Create release
       id: create_release
