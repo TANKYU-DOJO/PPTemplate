@@ -27,8 +27,7 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
 
     keys = []
     for cell in ws[1]:
-        if cell.value is None:
-            break
+        if cell.value is None: break
         keys.append(str(cell.value))
 
     counter = 1
@@ -38,32 +37,28 @@ def generate(path_template, path_data, path_output, sheetname: str | None = None
             value = ws[counter + 1][i].value
             if value is None:
                 for shape in template.slides[0].shapes:
-                    if hasattr(shape, 'text'):
-                        if shape.text == key:
-                            shape.fill.background()
+                    if hasattr(shape, 'text') and shape.text == key: # 図形の文字列がキーと一致していた場合
+                        shape.fill.background() # 見えなくする
                 replace_text(template.slides[0], key, '')
             else:
                 value = str(value)
-                if re.fullmatch(r'#[0-9a-zA-Z]{6}', value) is not None:
+                if re.fullmatch(r'#[0-9a-zA-Z]{6}', value) is not None: # カラーコードで指定されていた場合
                     for shape in template.slides[0].shapes:
-                        if hasattr(shape, 'text'):
-                            if shape.text == key:
-                                hex = value.lstrip("#")
-                                rgb = [int(hex[i:i+2], 16) for i in range(0, 6, 2)]
-                                shape.fill.solid()
-                                shape.fill.fore_color.rgb = RGBColor(rgb[0], rgb[1], rgb[2])
-                                shape.text = ''
-                elif re.fullmatch(r'\./.+\.[0-9a-zA-Z]+', value) is not None:
+                        if hasattr(shape, 'text') and shape.text == key:
+                            hex = value.lstrip("#")
+                            rgb = [int(hex[i:i+2], 16) for i in range(0, 6, 2)]
+                            shape.fill.solid()
+                            shape.fill.fore_color.rgb = RGBColor(rgb[0], rgb[1], rgb[2])
+                            shape.text = ''
+                elif re.fullmatch(r'\./.*\.[0-9a-zA-Z]+', value) is not None: # ./(任意の文字列).(拡張子) の場合、画像ファイルとして処理する
                     for shape in template.slides[0].shapes:
-                        if hasattr(shape, 'text'):
-                            if shape.text == key:
-                                path = os.path.join(os.path.dirname(path_data), value.lstrip('./'))
-                                template.slides[0].shapes.add_picture(path, shape.left, shape.top, shape.width, shape.height)
-                                # shapeを削除
-                                XML_reference = shape._sp
-                                XML_reference.getparent().remove(XML_reference)
-                else:
-                    replace_text(template.slides[0], key, value)
+                        if hasattr(shape, 'text') and shape.text == key:
+                            path = os.path.join(os.path.dirname(path_data), value.lstrip('./'))
+                            template.slides[0].shapes.add_picture(path, shape.left, shape.top, shape.width, shape.height)
+                            # shapeを削除
+                            XML_reference = shape._sp
+                            XML_reference.getparent().remove(XML_reference)
+                else: replace_text(template.slides[0], key, value) # 通常の文字列として処理
         template.save(os.path.join(path_output, str(counter) + '.pptx'))
         counter += 1
 
