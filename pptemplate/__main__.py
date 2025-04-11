@@ -22,9 +22,9 @@ layout_template = [
 
 layout_save = [
     [
-        sg.Text('フォルダーの場所'),
+        sg.Text('保存場所'),
         sg.Input(key='save'),
-        sg.FolderBrowse('フォルダー')
+        sg.FileSaveAs('PowerPointファイルの書き出し', file_types=(("PowerPointファイル", "*.pptx"),))
     ]
 ]
 
