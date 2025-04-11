@@ -35,7 +35,7 @@ layout = [
     [sg.Button('OK')]
 ]
 
-window = sg.Window('名札クリエイター', layout)
+window = sg.Window('PPTXテンプレートエンジン', layout)
 
 while window.is_alive():
     event, values = window.read()
