@@ -38,20 +38,9 @@ jobs:
 
     - name: Build Executable
       if: matrix.os != 'macos'
-      uses: Nuitka/Nuitka-Action@main
-      with:
-        nuitka-version: main
-        script-name: pptemplate
-        mode: standalone
-        enable-plugins: tk-inter
+      run: poetry run nuitka --standalone --enable-plugin=tk-inter pptemplate
     - name: Build Executable (macos)
-      if: matrix.os == 'macos'
-      uses: Nuitka/Nuitka-Action@main
-      with:
-        nuitka-version: main
-        script-name: pptemplate
-        mode: app
-        enable-plugins: tk-inter
+      run: poetry run nuitka --standalone --enable-plugin=tk-inter --macos-create-appbundle pptemplate
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
