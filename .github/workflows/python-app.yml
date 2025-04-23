@@ -25,16 +25,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Install poetry
-      run: pipx install poetry
-
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version-file: 'pyproject.toml'
 
     - name: Setup virtualenv
-      run: poetry install
+      run: |
+        pipx install poetry
+        poetry install
 
     - name: Build Executable
       if: matrix.os != 'macos'
